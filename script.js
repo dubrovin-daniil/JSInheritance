@@ -33,15 +33,15 @@ button.showBtn();
 
 // 2
 class Figure {
-    _name = "Abstract";
+    _name;
     _width;
     _height;
 
-    constructor(_name, width , height) {
+    constructor(width , height) {
         if (new.target === Figure) {
             throw new Error("Abstarct class!");
         }
-
+        this._name = "Abstract";
         this._width = width;
         this._height = height;
     }
@@ -96,7 +96,13 @@ class Triangle extends Figure {
     }
 
     perimeter() {
-        return a + 2 * Math.sqrt(h**2 + )
-    }
+        return 2 * Math.sqrt(a**2 - h**2) + 2 * a;
+    } 
+}
+
+const figures = [new Square(5), new Rectangle(5, 10), new Triangle(3, 5)];
+
+for (i of figures) {
+    document.write(i.getName());
 }
 
