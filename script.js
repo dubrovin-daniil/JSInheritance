@@ -24,7 +24,7 @@ class BootstrapButton extends Button {
     }
 
     showBtn() {
-        document.write(`<button style="background-color: ${this.#color}; width: ${this._width}; height: ${this._height};">${this._text}</button>`);
+        document.write(`<button style="background-color: ${this.#color}; width: ${this._width}; height: ${this._height};">${this._text}</button><br>`);
     }
 }
 
@@ -60,49 +60,82 @@ class Figure {
 
 class Square extends Figure {
     constructor(width) {
-        super("Square", width);
+        super(width, width);
+        this._name = "Square";
     }
 
     area() {
-        return width**2;
+        return this._width * this._height;
     }
 
     perimeter() {
-        return 4*width;
+        return 2 * (this._width + this._height);
     }
 }
 
 class Rectangle extends Figure {
     constructor(width, height) {
-        super("Rectangle", width, height);
+        super(width, height);
+        this._name = "Rectangle";
     }
 
     area() {
-        return width * height;
+        return this._width * this._height;
     }
 
     perimeter() {
-        return 2 * (width + height);
+        return 2 * (this._width + this._height);
     }
 }
 
 class Triangle extends Figure {
-    constructor(a, h) {
-        super("Triangle", a, h);
+    constructor(width, height) {
+        super(width, height);
+        this._name = "Triangle";
     }
 
     area() {
-        return 0,5 * a * h;
+        return 0.5 * this._width * this._height;
     }
 
     perimeter() {
-        return 2 * Math.sqrt(a**2 - h**2) + 2 * a;
-    } 
+        return this._width + this._height + Math.sqrt(this._width ** 2 + this._height ** 2);
+    }
 }
 
-const figures = [new Square(5), new Rectangle(5, 10), new Triangle(3, 5)];
-
-for (i of figures) {
-    document.write(i.getName());
+const figures = [new Square(5), new Rectangle(4, 6), new Triangle(3, 4)];
+for (const figure of figures) {
+    document.write(`<h2>${figure.getName}</h2>`);
+    figure.printInfo();
+    document.write(`<p>Area: ${figure.area()}</p>`);
+    document.write(`<p>Perimeter: ${figure.perimeter()}</p>`);
 }
 
+// 3
+class ExtentedArray extends Array {
+    getString(separator) {
+        return this.join(separator);
+    }
+
+    getHtml(tagName) {
+        let htmlText = "";
+        if (tagName === "li") {
+            htmlText += "<ul>";
+            for (const item of this) {
+                htmlText += `<li>${item}</li>`;
+            }
+            htmlText += "</ul>";
+            return htmlText;
+        }
+        for (const item of this) {
+            htmlText += `<${tagName}>${item}</${tagName}>`;
+        }
+        return htmlText;
+    }
+}
+
+const arr = new ExtentedArray("1", "2", "3", "class", "apple", "engine");
+document.write("<br><h2>Array: </h2>");
+document.write(arr.getString(" "));
+document.write(arr.getHtml("h3"));
+document.write(arr.getHtml("li"));
